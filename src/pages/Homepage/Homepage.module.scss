@@ -1,0 +1,21 @@
+.Inner {
+  height: calc(100% - 96px);
+  display: grid;
+  grid-template-rows: 1fr 1fr 2fr;
+}
+
+.keyboard {
+  & > g {
+    & > path {
+      font-size: 2rem;
+      fill: none;
+      stroke: rgba(109, 40, 217, 700);
+      stroke-width: 0.5;
+      stroke-miterlimit: 10;
+    }
+    & > text {
+      fill: rgba(109, 40, 217, 700);
+      font-size: 0.6rem;
+    }
+  }
+}

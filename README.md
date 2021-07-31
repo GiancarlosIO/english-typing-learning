@@ -1,1 +1,3 @@
-A simple clone of [qwerty-learner](https://qwerty.kaiyi.cool/) to learn more about keyboard events and typing stuff.
+A project based in [qwerty-learner](https://qwerty.kaiyi.cool/) created to:
+* Learn and improve your touch typing skills
+* Increase your english vocabulary
