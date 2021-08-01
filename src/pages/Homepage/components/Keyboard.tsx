@@ -20,8 +20,6 @@ const Keyboard: React.FC<{
   activeChar: string | undefined;
   pressedKey: string | undefined;
 }> = ({ activeChar, pressedKey }) => {
-  console.log({ activeChar, pressedKey });
-
   return (
     <KeyboardIcon
       className={cls.keyboard}

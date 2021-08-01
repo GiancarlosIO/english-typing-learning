@@ -4,6 +4,7 @@ import { useQuery } from 'react-query';
 import Header from '@components/Header';
 
 import useKey from '@react-hooks/useKey';
+import usePronunciationSound from '@react-hooks/usePronunciation';
 
 import dictApi from '@fetchers/dict';
 import type { Word } from '@fetchers/dict';
@@ -34,6 +35,8 @@ const Homepage: React.FC = () => {
   const { data, isLoading } = useQuery('327-words', dictApi.getTop327, {
     refetchOnWindowFocus: false,
   });
+
+  usePronunciationSound(currentWord?.word);
 
   const pressedKey = useKey((keyPressed) => {
     if (isKeySupported(keyPressed)) {
