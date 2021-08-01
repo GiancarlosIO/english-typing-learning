@@ -994,7 +994,7 @@ const Keyboard: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
           dx="0"
           dy="0"
         >
-          '
+          {"'"}
         </text>
         <text
           transform="matrix(1 0 0 1 565.621 120.3763)"
@@ -1002,7 +1002,7 @@ const Keyboard: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
           dx="0"
           dy="0"
         >
-          "
+          {'"'}
         </text>
         <text
           transform="matrix(1 0 0 1 553.3923 94.426)"

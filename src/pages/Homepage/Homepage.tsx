@@ -7,6 +7,7 @@ import Keyboard from '@icons/Keyboard';
 import useKey from '@react-hooks/useKey';
 
 import dictApi from '@fetchers/dict';
+import type { Word } from '@fetchers/dict';
 
 import cls from './Homepage.module.scss';
 
@@ -24,7 +25,9 @@ if (typeof window != 'undefined') {
 }
 
 const Homepage: React.FC = () => {
-  const [currentWord, setCurrentWord] = React.useState('');
+  const [currentWord, setCurrentWord] = React.useState<
+    undefined | (Word & { index: number })
+  >(undefined);
   const [wordProgress, setWordProgress] = React.useState(-1);
   const [wrongIndex, setWrongIndex] = React.useState(-1);
   const { data, isLoading } = useQuery('327-words', dictApi.getTop327, {
@@ -36,7 +39,8 @@ const Homepage: React.FC = () => {
       keyPressAudio.currentTime = 0;
       keyPressAudio.play();
 
-      if (currentWord && currentWord[wordProgress + 1] === keyPressed) {
+      const nextChar = currentWord?.word[wordProgress + 1];
+      if (currentWord && nextChar === keyPressed) {
         setWordProgress((v) => v + 1);
       } else {
         setWrongIndex(() => {
@@ -54,13 +58,31 @@ const Homepage: React.FC = () => {
     }
   });
 
-  const wordItem = data?.words[0];
+  React.useEffect(() => {
+    if (data && data.words.length) {
+      setCurrentWord({
+        ...data.words[0],
+        index: 0,
+      });
+    }
+  }, [data]);
 
   React.useEffect(() => {
-    if (wordItem) {
-      setCurrentWord(wordItem.word);
+    // if we have completed the word-typing, pass to the next wordItem
+    if (data && currentWord && wordProgress + 1 === currentWord.word.length) {
+      const nextIndex = currentWord?.index + 1;
+      const nextItem = data?.words[nextIndex];
+      if (nextItem) {
+        setCurrentWord({
+          ...nextItem,
+          index: nextIndex,
+        });
+        setWordProgress(-1);
+      } else {
+        console.log('we have reached the end of the list words');
+      }
     }
-  }, [data, wordItem]);
+  }, [data, wordProgress, currentWord]);
 
   const getColorText = (index: number) =>
     wordProgress + 1 > index ? 'text-green-500' : 'text-purple-500';
@@ -69,13 +91,13 @@ const Homepage: React.FC = () => {
       <Header />
       <div className={`${cls.Inner} max-w-screen-lg mx-auto py-4`}>
         <div className="flex flex-col items-center justify-center">
-          {data && wordItem && !isLoading && currentWord ? (
+          {data && currentWord && !isLoading ? (
             <React.Fragment>
               <span className="text-gray-500 inline-block italic">
-                {wordItem.pronunciation}
+                {currentWord.pronunciation}
               </span>
               <span className="text-7xl mb-4 mt-2">
-                {currentWord.split('').map((c, index) => (
+                {currentWord.word.split('').map((c, index) => (
                   <span
                     className={
                       wrongIndex === index
@@ -89,7 +111,7 @@ const Homepage: React.FC = () => {
                 ))}
               </span>
               <span className="text-gray-500 inline-block">
-                {wordItem.definition}
+                {currentWord.definition}
               </span>
             </React.Fragment>
           ) : (
