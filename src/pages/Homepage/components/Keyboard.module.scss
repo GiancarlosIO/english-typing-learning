@@ -1,0 +1,15 @@
+.keyboard {
+  & > g {
+    & > path {
+      font-size: 2rem;
+      fill: none;
+      stroke: rgba(16, 185, 129, 1);
+      stroke-width: 0.5;
+      stroke-miterlimit: 10;
+    }
+    & > text {
+      fill: rgba(16, 185, 129, 1);
+      font-size: 0.6rem;
+    }
+  }
+}

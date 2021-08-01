@@ -2,12 +2,13 @@ import * as React from 'react';
 import { useQuery } from 'react-query';
 
 import Header from '@components/Header';
-import Keyboard from '@icons/Keyboard';
 
 import useKey from '@react-hooks/useKey';
 
 import dictApi from '@fetchers/dict';
 import type { Word } from '@fetchers/dict';
+
+import Keyboard from './components/Keyboard';
 
 import cls from './Homepage.module.scss';
 
@@ -34,7 +35,7 @@ const Homepage: React.FC = () => {
     refetchOnWindowFocus: false,
   });
 
-  useKey((keyPressed) => {
+  const pressedKey = useKey((keyPressed) => {
     if (isKeySupported(keyPressed)) {
       keyPressAudio.currentTime = 0;
       keyPressAudio.play();
@@ -80,6 +81,7 @@ const Homepage: React.FC = () => {
         setWordProgress(-1);
       } else {
         console.log('we have reached the end of the list words');
+        setWordProgress(-1);
       }
     }
   }, [data, wordProgress, currentWord]);
@@ -140,11 +142,10 @@ const Homepage: React.FC = () => {
         </div>
         <div>
           <Keyboard
-            className={cls.keyboard}
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
+            activeChar={
+              currentWord ? currentWord.word[wordProgress + 1] : undefined
+            }
+            pressedKey={pressedKey}
           />
         </div>
       </div>
