@@ -1,10 +1,10 @@
-# English typing learner
+# English typing learning
 
-A project based in [qwerty-learner](https://qwerty.kaiyi.cool/) created to:
+A simple app to improve your typing skills while you practice english vocab for gre/toefl/ielts etc.
+
+This project is based in [qwerty-learner](https://qwerty.kaiyi.cool/) but with a different approach, it aims to:
 * Learn and improve your touch typing skills
-* Increase your english vocabulary
+* Improve your english vocabulary
 
-Here are some articles that I've used to create the word list:
-* https://www.prepscholar.com/toefl/blog/toefl-vocabulary-list/
 
 
