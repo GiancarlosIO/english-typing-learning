@@ -1,8 +1,12 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import '../styles/globals.css';
+
 import * as React from 'react';
+import type { AppProps } from 'next/app';
 import NProgress from 'nprogress';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -26,7 +30,10 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
   }, [router]);
 
-
-  return <Component {...pageProps} />
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Component {...pageProps} />
+    </QueryClientProvider>
+  );
 }
-export default MyApp
+export default MyApp;

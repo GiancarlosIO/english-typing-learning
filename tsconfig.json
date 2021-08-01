@@ -28,6 +28,12 @@
       "@icons/*": [
         "./src/shared/icons/*"
       ],
+      "@fetchers/*": [
+        "./src/fetchers/*"
+      ],
+      "@react-hooks/*": [
+        "./src/shared/react-hooks/*"
+      ]
     }
   },
   "include": [
