@@ -10,6 +10,7 @@ import dictApi from '@fetchers/dict';
 import type { Word } from '@fetchers/dict';
 
 import Keyboard from './components/Keyboard';
+import Board from './components/Board';
 
 import cls from './Homepage.module.scss';
 
@@ -32,7 +33,7 @@ const Homepage: React.FC = () => {
   >(undefined);
   const [wordProgress, setWordProgress] = React.useState(-1);
   const [wrongIndex, setWrongIndex] = React.useState(-1);
-  const { data, isLoading } = useQuery('327-words', dictApi.getTop327, {
+  const { data, isLoading } = useQuery('327-words', dictApi.getBaron334, {
     refetchOnWindowFocus: false,
   });
 
@@ -98,9 +99,11 @@ const Homepage: React.FC = () => {
         <div className="flex flex-col items-center justify-center">
           {data && currentWord && !isLoading ? (
             <React.Fragment>
-              <span className="text-gray-500 inline-block italic">
-                {currentWord.pronunciation}
-              </span>
+              {currentWord.pronunciation && (
+                <span className="text-gray-500 inline-block italic">
+                  {currentWord.pronunciation}
+                </span>
+              )}
               <span className="text-7xl mb-4 mt-2">
                 {currentWord.word.split('').map((c, index) => (
                   <span
@@ -124,24 +127,7 @@ const Homepage: React.FC = () => {
           )}
         </div>
         <div className="flex justify-center items-center">
-          <div className="flex flex-row p-4 bg-gray-100">
-            <div className="p-4 text-center w-52">
-              <span className="block font-bold text-gray-900 text-3xl">20</span>
-              <span className="block">words peer minute</span>
-            </div>
-            <div className="p-4 text-center w-52">
-              <span className="block font-bold text-gray-900 text-3xl">
-                129
-              </span>
-              <span className="block">words typed</span>
-            </div>
-            <div className="p-4 text-center w-52">
-              <span className="block font-bold text-gray-900 text-3xl">
-                05:20
-              </span>
-              <span className="block">time</span>
-            </div>
-          </div>
+          <Board wordItemIndex={currentWord?.index} word={currentWord?.word} />
         </div>
         <div>
           <Keyboard

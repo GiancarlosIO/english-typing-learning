@@ -15,6 +15,15 @@ const dictApi = {
   getTop327: () => {
     return fetcher<Response>('/words/327-best-words.json');
   },
+  getBaron334: () => {
+    return fetcher<Response>('/words/baron-334.json');
+  },
+  getBaron753: () => {
+    return fetcher<Response>('/words/baron-753.json');
+  },
+  getQitao1787: () => {
+    return fetcher<Response>('/words/qitao-1781.json');
+  },
 };
 
 export default dictApi;
