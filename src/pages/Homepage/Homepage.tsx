@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useQuery } from 'react-query';
+import { NextSeo } from 'next-seo';
 
 import Header from '@components/Header';
 
@@ -92,53 +93,80 @@ const Homepage: React.FC = () => {
 
   const getColorText = (index: number) =>
     wordProgress + 1 > index ? 'text-green-500' : 'text-purple-500';
+
+  const seoTitle = 'English Typing Learning';
+  const seoDescription =
+    'A simple app to improve your typing skills while you practice english vocab for gre/toefl/ielts etc.';
   return (
-    <div className="h-screen max-h-screen">
-      <Header />
-      <div className={`${cls.Inner} max-w-screen-lg mx-auto py-4`}>
-        <div className="flex flex-col items-center justify-center">
-          {data && currentWord && !isLoading ? (
-            <React.Fragment>
-              {currentWord.pronunciation && (
-                <span className="text-gray-500 inline-block italic">
-                  {currentWord.pronunciation}
-                </span>
-              )}
-              <span className="text-7xl mb-4 mt-2">
-                {currentWord.word.split('').map((c, index) => (
-                  <span
-                    className={
-                      wrongIndex === index
-                        ? 'text-red-500'
-                        : getColorText(index)
-                    }
-                    key={index}
-                  >
-                    {c}
+    <React.Fragment>
+      <NextSeo
+        title={seoTitle}
+        description={seoDescription}
+        openGraph={{
+          type: 'website',
+          url: 'https://english-typing-learner.vercel.app/',
+          title: seoTitle,
+          description: seoDescription,
+          images: [
+            {
+              url: '/img/english-type-learner-bg.png',
+              width: 1072,
+              height: 858,
+              alt: seoTitle,
+            },
+          ],
+        }}
+      />
+      <div className="h-screen max-h-screen">
+        <Header />
+        <div className={`${cls.Inner} max-w-screen-lg mx-auto py-4`}>
+          <div className="flex flex-col items-center justify-center">
+            {data && currentWord && !isLoading ? (
+              <React.Fragment>
+                {currentWord.pronunciation && (
+                  <span className="text-gray-500 inline-block italic">
+                    {currentWord.pronunciation}
                   </span>
-                ))}
-              </span>
-              <span className="text-gray-500 inline-block">
-                {currentWord.definition}
-              </span>
-            </React.Fragment>
-          ) : (
-            <div>loading</div>
-          )}
-        </div>
-        <div className="flex justify-center items-center">
-          <Board wordItemIndex={currentWord?.index} word={currentWord?.word} />
-        </div>
-        <div>
-          <Keyboard
-            activeChar={
-              currentWord ? currentWord.word[wordProgress + 1] : undefined
-            }
-            pressedKey={pressedKey}
-          />
+                )}
+                <span className="text-7xl mb-4 mt-2">
+                  {currentWord.word.split('').map((c, index) => (
+                    <span
+                      className={
+                        wrongIndex === index
+                          ? 'text-red-500'
+                          : getColorText(index)
+                      }
+                      key={index}
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </span>
+                <span className="text-gray-500 inline-block">
+                  {currentWord.definition}
+                </span>
+              </React.Fragment>
+            ) : (
+              <div>loading</div>
+            )}
+          </div>
+          <div className="flex justify-center items-center">
+            <Board
+              wordItemIndex={currentWord?.index}
+              word={currentWord?.word}
+            />
+          </div>
+          <div>
+            <Keyboard
+              activeChar={
+                currentWord ? currentWord.word[wordProgress + 1] : undefined
+              }
+              pressedKey={pressedKey}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
