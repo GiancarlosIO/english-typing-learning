@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-function Keyboard(props) {
+const Keyboard: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
   return (
     <svg
       className="standard-kb"
@@ -1125,6 +1125,6 @@ function Keyboard(props) {
       </g>
     </svg>
   );
-}
+};
 
 export default Keyboard;

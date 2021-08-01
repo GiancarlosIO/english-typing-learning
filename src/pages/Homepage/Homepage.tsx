@@ -62,8 +62,8 @@ const Homepage: React.FC = () => {
     }
   }, [data, wordItem]);
 
-  console.log({ wordProgress, wrongIndex });
-
+  const getColorText = (index: number) =>
+    wordProgress + 1 > index ? 'text-green-500' : 'text-purple-500';
   return (
     <div className="h-screen max-h-screen">
       <Header />
@@ -80,9 +80,7 @@ const Homepage: React.FC = () => {
                     className={
                       wrongIndex === index
                         ? 'text-red-500'
-                        : wordProgress + 1 > index
-                          ? 'text-green-500'
-                          : 'text-purple-500'
+                        : getColorText(index)
                     }
                     key={index}
                   >
